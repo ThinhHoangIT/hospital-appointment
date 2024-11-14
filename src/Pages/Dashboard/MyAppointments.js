@@ -1,80 +1,105 @@
-// import { signOut } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
-// import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
-// import auth from '../../firebase.init';
+import React, { useEffect, useState } from "react";
+import api from "../../services/api";
+import storage from "../../storage";
+import { formatFullDate } from "../../commons/utils";
+import AppointmentDetail from "./AppointmentDetail";
+
+export const getDepartmentName = (id) => {
+  switch (id) {
+    case "ent":
+      return "Tai Mũi Họng";
+    case "dental":
+      return "Nha Khoa";
+    case "dermatology":
+      return "Da Liễu";
+    case "heart":
+      return "Tim Mạch";
+    case "pediatrics":
+      return "Nhi Khoa";
+  }
+};
 
 const MyAppointments = () => {
+  const [appointments, setAppointments] = useState([]);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const user = storage.getUser();
 
-    const [appointments, setAppointments] = useState([]);
-    console.log(appointments)
-    // const [user] = useAuthState(auth);
-    const user = {}
-    const navigate = useNavigate();
+  useEffect(() => {
+    api
+      .getAppointmentsByUserId(user._id)
+      .then((res) => {
+        setAppointments(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-    useEffect(() => {
-        
-    fetch(`http://localhost:7000/booking?patient=${user?.email}`, {
-        // verify user 
-        method: 'GET',
-        headers: {
-            'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    })
-        .then(res => {
-            console.log('res', res);
-            if (res.status === 401 || res.status === 403) {
-                // signOut(auth);
-                localStorage.removeItem('accessToken');
-                navigate('/');
-            }
-            return res.json()
-        })
-        .then(data => {
+  const handleRowClick = (appointment) => {
+    setSelectedAppointment(appointment);
+  };
 
-            setAppointments(data);
-        });
-    }, [user]);
+  const handleBackClick = () => {
+    setSelectedAppointment(null);
+  };
 
-    return (
+  return (
+    <div>
+      {selectedAppointment ? (
         <div>
-            <h2>My Appointments: {appointments?.length}</h2>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Treatment</th>
-                            <th>Payment</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            appointments?.map((a, index) =><tr>
-                                <th>{index + 1}</th>
-                                <td>{a.patientName}</td>
-                                <td>{a.date}</td>
-                                <td>{a.slot}</td>
-                                <td>{a.treatment}</td>
-                                <td>
-                                    {(a.price && !a.paid) && <Link to={`/dashboard/payment/${a._id}`}><button className='btn btn-xs btn-success'>pay</button></Link>}
-                                    {(a.price && a.paid) && <div>
-                                        <p><span className='text-success'>Paid</span></p>
-                                        <p>Transaction id: <span className='text-success'>{a.transactionId}</span></p>
-                                    </div>}
-                                </td>
-                            </tr>)
-                        }
-                        
-                        
-                    </tbody>
-                </table>
-            </div>
+          <button
+            onClick={handleBackClick}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
+          >
+            Quay lại
+          </button>
+          <AppointmentDetail appointment={selectedAppointment} />
         </div>
-    );
+      ) : (
+        <div>
+          <h2 className="text-xl font-semibold mb-4">
+            My Appointments: {appointments?.length}
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="table w-full">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Date</th>
+                  <th>Treatment</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {appointments?.map((a, index) => (
+                  <tr
+                    key={a._id}
+                    onClick={() => handleRowClick(a)}
+                    className="hover:bg-gray-100 cursor-pointer"
+                  >
+                    <th>{index + 1}</th>
+                    <td>{formatFullDate(a.date)}</td>
+                    <td>{getDepartmentName(a.departmentId)}</td>
+                    <td>
+                      {a.status === "pending" && (
+                        <span className="badge badge-warning">Đang chờ</span>
+                      )}
+                      {a.status === "approved" && (
+                        <span className="badge badge-success">Đã khám</span>
+                      )}
+                      {a.status === "rejected" && (
+                        <span className="badge badge-error">Đã hủy</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default MyAppointments;

@@ -8,14 +8,14 @@ const Infos = [
   {
     _id: 1,
     img: clock,
-    cardTitle: "Giờ làm việc",
-    desc: "Thứ 2 - Thứ 6:",
+    cardTitle: "Working Hours",
+    desc: "Thứ 2 - Thứ 6",
     bgClass: "bg-gradient-to-r from-secondary to-primary",
   },
   {
     _id: 2,
     img: marker,
-    cardTitle: "Địa chỉ",
+    cardTitle: "Address",
     desc: "1234 Quang Trung, P.10, Gò Vấp, TP.HCM",
     bgClass: "bg-neutral",
   },

@@ -1,43 +1,34 @@
-// import { signOut } from 'firebase/auth';
 import React from "react";
-// import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from "react-router-dom";
-// import auth from '../../firebase.init';
-import { useLocation } from "react-router-dom";
+import storage from "../../storage";
+
 const Navbar = () => {
-  // const [user] = useAuthState(auth);
-  const user = {};
-  const { pathname } = useLocation();
+  const user = storage.getUser();
+
   const logout = () => {
-    // signOut(auth);
-    localStorage.removeItem("accessToken");
+    storage.removeUser();
+    window.location.href = "/";
   };
 
   const menuItems = (
     <>
       <li>
-        <Link to="/">Trang chủ</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/">Chuyên khoa</Link>
+        <Link to="/appointment">Appointment</Link>
       </li>
       <li>
-        <Link to="/appointment">Đặt hẹn</Link>
+        <Link to="/contact">Contact</Link>
       </li>
-      <li>
-        <Link to="/review">Đánh giá</Link>
-      </li>
-      <li>
-        <Link to="/contact">Liên hệ</Link>
-      </li>
-      {
+      {user && (
         <li>
           <Link to="/dashboard">Dashboard</Link>
         </li>
-      }
+      )}
       <li>
         {user ? (
-          <button className="btn btn-ghost" onClick={logout}>
+          <button className="btn btn-ghost h-full min-h-0" onClick={logout}>
             Sign Out
           </button>
         ) : (
@@ -46,6 +37,7 @@ const Navbar = () => {
       </li>
     </>
   );
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -73,37 +65,13 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">Bệnh viện 512</a>
+        <a className="btn btn-ghost normal-case text-xl">Hospital</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-        <label
-          style={
-            pathname.includes("dashboard")
-              ? { display: "block" }
-              : { display: "none" }
-          }
-          tabIndex="1"
-          for="dashboard-sidebar"
-          className="btn btn-ghost lg:hidden"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h8m-8 6h16"
-            />
-          </svg>
-        </label>
+        {/* Không cần điều kiện hiển thị sidebar */}
       </div>
     </div>
   );
