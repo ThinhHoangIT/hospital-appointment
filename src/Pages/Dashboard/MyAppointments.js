@@ -58,16 +58,16 @@ const MyAppointments = () => {
       ) : (
         <div>
           <h2 className="text-xl font-semibold mb-4">
-            My Appointments: {appointments?.length}
+            Lịch sử đặt hẹn: {appointments?.length}
           </h2>
           <div className="overflow-x-auto">
             <table className="table w-full">
               <thead>
                 <tr>
                   <th></th>
-                  <th>Date</th>
-                  <th>Treatment</th>
-                  <th>Status</th>
+                  <th>Ngày</th>
+                  <th>Khoa</th>
+                  <th>Trạng thái</th>
                 </tr>
               </thead>
               <tbody>

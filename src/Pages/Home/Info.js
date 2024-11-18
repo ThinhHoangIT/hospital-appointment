@@ -8,21 +8,21 @@ const Infos = [
   {
     _id: 1,
     img: clock,
-    cardTitle: "Working Hours",
+    cardTitle: "Giờ làm việc",
     desc: "Thứ 2 - Thứ 6",
     bgClass: "bg-gradient-to-r from-secondary to-primary",
   },
   {
     _id: 2,
     img: marker,
-    cardTitle: "Address",
+    cardTitle: "Địa chỉ",
     desc: "1234 Quang Trung, P.10, Gò Vấp, TP.HCM",
     bgClass: "bg-neutral",
   },
   {
     _id: 3,
     img: phone,
-    cardTitle: "Contact Us",
+    cardTitle: "Liên hệ",
     desc: "0123 456 789",
     bgClass: "bg-gradient-to-r from-secondary to-primary",
   },
@@ -30,7 +30,7 @@ const Infos = [
 
 const Info = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-8">
       {Infos.map((info) => (
         <InfoCard
           id={info._id}

@@ -60,9 +60,9 @@ const Services = () => {
           data-aos="fade-right"
           data-aos-duration="2000"
         >
-          Our Services
+          Dịch vụ của chúng tôi
         </h3>
-        <h2 className="text-4xl">Services We Provide</h2>
+        <h2 className="text-4xl mb-6">Cung cấp các dịch vụ sau</h2>
       </div>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
         {services?.map((service) => (

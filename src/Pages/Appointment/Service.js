@@ -8,10 +8,17 @@ const Service = ({ department, setDepartment }) => {
         <div className="card-actions justify-center">
           <label
             htmlFor="booking-modal"
-            onClick={() => setDepartment(department)}
-            className="btn btn-sm btn-secondary text-white uppercase bg-gradient-to-r from-secondary to-primary"
+            onClick={() => {
+              if (setDepartment) {
+                setDepartment(department);
+              }
+            }}
+            className={`btn btn-sm btn-secondary text-white uppercase bg-gradient-to-r from-secondary to-primary ${
+              !setDepartment ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            style={{ pointerEvents: !setDepartment ? "none" : "auto" }}
           >
-            Book Appointment
+            Đặt hẹn
           </label>
         </div>
       </div>

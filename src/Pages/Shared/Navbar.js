@@ -13,26 +13,26 @@ const Navbar = () => {
   const menuItems = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/">Trang chủ</Link>
       </li>
       <li>
-        <Link to="/appointment">Appointment</Link>
+        <Link to="/appointment">Đặt hẹn</Link>
       </li>
       <li>
-        <Link to="/contact">Contact</Link>
+        <Link to="/contact">Liên hệ</Link>
       </li>
       {user && (
         <li>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/dashboard">Thống kê</Link>
         </li>
       )}
       <li>
         {user ? (
           <button className="btn btn-ghost h-full min-h-0" onClick={logout}>
-            Sign Out
+            Đăng xuất
           </button>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link to="/login">Đăng nhập</Link>
         )}
       </li>
     </>

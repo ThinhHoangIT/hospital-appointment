@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import storage from "../../storage";
@@ -6,6 +6,7 @@ import api from "../../services/api";
 
 const BookingModal = ({ date, department }) => {
   const user = storage.getUser();
+  const [shift, setShift] = useState("morning");
 
   const handleBooking = (event) => {
     event.preventDefault();
@@ -13,6 +14,7 @@ const BookingModal = ({ date, department }) => {
       userId: user._id,
       departmentId: department.id,
       date: date.valueOf(),
+      shift,
     };
     api
       .createAppointment(booking)
@@ -38,7 +40,7 @@ const BookingModal = ({ date, department }) => {
             ✕
           </label>
           <h3 className="font-bold text-lg text-secondary">
-            Booking for: {department.name}
+            Đặt hẹn: {department.name}
           </h3>
           <form
             onSubmit={handleBooking}
@@ -57,6 +59,14 @@ const BookingModal = ({ date, department }) => {
               value={user?.name || ""}
               className="input input-bordered w-full max-w-xs"
             />
+            <select
+              value={shift}
+              onChange={(e) => setShift(e.target.value)}
+              className="select select-bordered w-full max-w-xs"
+            >
+              <option value="morning">Ca sáng</option>
+              <option value="evening">Ca tối</option>
+            </select>
             <input
               type="submit"
               value="Submit"

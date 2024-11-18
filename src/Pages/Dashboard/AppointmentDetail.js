@@ -26,6 +26,10 @@ const AppointmentDetail = ({ appointment }) => {
         <strong>Ngày hẹn:</strong> {formatFullDate(appointment.date)}
       </div>
       <div className="mb-2">
+        <strong>Ca khám:</strong>{" "}
+        {appointment.shift === "morning" ? "Sáng" : "Chiều"}
+      </div>
+      <div className="mb-2">
         <strong>Giờ khám:</strong> {formatFullDateTime(invoice?.createdAt)}
       </div>
       <div className="mb-2">

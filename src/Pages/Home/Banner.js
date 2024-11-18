@@ -22,7 +22,7 @@ const Banner = () => {
             data-aos="fade-right"
             data-aos-duration="1000"
           >
-            Take care of your health
+            Chăm sóc sức khỏe của bạn
           </h1>
           <p
             className="py-6 text-justify"
@@ -30,10 +30,9 @@ const Banner = () => {
             data-aos-duration="2000"
             data-aos-delay="1000"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod
-            ipsum et dui rhoncus auctor. Nullam euismod, elit nec lacinia
-            ultrices, urna ex ultricies libero, nec facilisis risus nunc ac
-            libero.
+            Có gì cũng được trừ có bệnh, không có gì cũng được trừ không có
+            tiền, thiếu gì cũng được trừ thiếu sức khỏe. Sức khỏe không phải là
+            tất cả nhưng không có sức khỏe sẽ chẳng có thứ gì!
           </p>
           <PrimaryButton>Appointment</PrimaryButton>
         </div>

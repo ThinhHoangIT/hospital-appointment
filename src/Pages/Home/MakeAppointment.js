@@ -21,16 +21,12 @@ const MakeAppointment = () => {
         />
       </div>
       <div className="flex-1 px-5" data-aos="zoom-in" data-aos-duration="3000">
-        <h3 className="text-xl text-primary font-bold">Appointment</h3>
-        <h2 className="text-3xl text-white py-5">Make an Appointment Today</h2>
+        <h3 className="text-xl text-primary font-bold">Đặt hẹn</h3>
+        <h2 className="text-3xl text-white py-5">Đặt hẹn ngay hôm nay</h2>
         <p className="text-white pb-5">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
-          earum ab cupiditate autem accusantium expedita sequi, temporibus, aut
-          illo doloribus quaerat explicabo, assumenda consectetur est vel ad sed
-          maiores doloremque consequatur. Amet consequuntur quibusdam autem,
-          quod maxime qui itaque quaerat.
+          Đặt hẹn ngay hôm nay để nhận được dịch vụ tốt nhất từ chúng tôi
         </p>
-        <PrimaryButton>Get Started</PrimaryButton>
+        <PrimaryButton>Bắt đầu</PrimaryButton>
       </div>
     </section>
   );
